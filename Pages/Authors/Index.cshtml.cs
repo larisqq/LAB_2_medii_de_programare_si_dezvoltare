@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LAB_2.Data;
 using LAB_2.Models;
 
-namespace LAB_2.Pages.Books
+namespace LAB_2.Pages.Authors
 {
     public class IndexModel : PageModel
     {
@@ -19,14 +19,11 @@ namespace LAB_2.Pages.Books
             _context = context;
         }
 
-        public IList<Book> Book { get;set; } = default!;
+        public IList<Author> Author { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Book = await _context.Book
-        .Include(b => b.Author) 
-        .Include(b => b.Publisher)
-        .ToListAsync();
+            Author = await _context.Author.ToListAsync();
         }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using LAB_2.Data;
 using LAB_2.Models;
 
-namespace LAB_2.Pages.Books
+namespace LAB_2.Pages.Authors
 {
     public class CreateModel : PageModel
     {
@@ -21,22 +21,11 @@ namespace LAB_2.Pages.Books
 
         public IActionResult OnGet()
         {
-            ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID", "PublisherName");
-            var authors = _context.Set<Author>().ToList(); // Obține lista de autori
-            if (authors.Count > 0)
-            {
-                ViewData["AuthorID"] = new SelectList(authors, "ID", "FirstName", "LastName"); // Adaugă autori
-            }
-            else
-            {
-                ViewData["AuthorID"] = new SelectList(Enumerable.Empty<Author>(), "ID", "FirstName"); // Adaugă un select gol
-            }
-
             return Page();
         }
 
         [BindProperty]
-        public Book Book { get; set; } = default!;
+        public Author Author { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -46,7 +35,7 @@ namespace LAB_2.Pages.Books
                 return Page();
             }
 
-            _context.Book.Add(Book);
+            _context.Author.Add(Author);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
